@@ -29,6 +29,7 @@ var threshold = 0.5;
 var highlight = '';
 var filter_list = [];
 var predictions = [];
+var environment_variables = '';
 
 // Refreshes the label icons visibility
 function update_label_icons() {
@@ -45,6 +46,11 @@ function update_label_icons() {
 function display_box(i) {
   return predictions[i]['probability'] > threshold
     && !filter_list.includes(predictions[i]['label_id']);
+}
+
+// display network & host infos
+function display_host_infos() {
+  $('#env-variable').html(environment_variables);
 }
 
 // (re)paints canvas (if canvas exists) and triggers label visibility refresh
@@ -172,7 +178,21 @@ $(function() {
         dataType: 'json',
         success: function(data) {
           predictions = data['predictions'];
+          var environment_variables_json = data['environment_variables'];
+          var tableHeader="";
+          tableHeader= "<tr><th>Name</th><th>Values</th></tr>"
+          var tableBody="";
+
+          $.each(environment_variables_json, function(i, item) {
+            var tableRow="";
+            tableRow+="<td>"+item['name']+"</td>";
+            tableRow+="<td>"+item['value']+"</td>";
+            tableBody=tableBody+"<tr>"+tableRow+"</tr>";
+          });
+          environment_variables = "<table>"+tableHeader+tableBody+"</table>";
+
           paint_canvas();
+          display_host_infos();
           if (predictions.length === 0) {
             alert('No Objects Detected');
           }
