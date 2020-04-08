@@ -49,7 +49,7 @@ function display_box(i) {
 }
 
 // display network & host infos at loading time
-object.onload = function display_host_infos() {
+function display_host_infos() {
   $('#env-variable').html(environment_variables);
 }
 
