@@ -135,6 +135,7 @@ function paint_label_text(i, ctx, can) {
 
 // Run or bind functions on page load
 $(function() {
+
   // Update canvas when window resizes
   $(window).resize(function(){
     paint_canvas();
@@ -192,7 +193,7 @@ $(function() {
           environment_variables = "<table>"+tableHeader+tableBody+"</table>";
 
           paint_canvas();
-          //display_host_infos();
+          display_host_infos();
           if (predictions.length === 0) {
             alert('No Objects Detected');
           }
