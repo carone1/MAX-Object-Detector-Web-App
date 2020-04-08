@@ -48,8 +48,8 @@ function display_box(i) {
     && !filter_list.includes(predictions[i]['label_id']);
 }
 
-// display network & host infos
-function display_host_infos() {
+// display network & host infos at loading time
+object.onload = function display_host_infos() {
   $('#env-variable').html(environment_variables);
 }
 
@@ -192,7 +192,7 @@ $(function() {
           environment_variables = "<table>"+tableHeader+tableBody+"</table>";
 
           paint_canvas();
-          display_host_infos();
+          //display_host_infos();
           if (predictions.length === 0) {
             alert('No Objects Detected');
           }
